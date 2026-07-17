@@ -39,3 +39,10 @@ The filtering is simple here: it tokenizes the query and scores each tool descri
 incident_tools.filtered(...) returns a scoped toolset that only includes the most relevant tools. This reduces prompt size and makes the model less likely to choose the wrong tool.
 
 The final execution step, agent.run_sync(query, deps=deps, toolsets=[scoped_toolset]), wires everything together: the query goes in, the filtered toolset is available, the model uses tools and retries when needed, and the final result.output is a validated SeverityResult.
+
+ctx = runtime context object passed into tools/instructions
+RunContext = wrapper around dependencies and runtime state
+IncidentDeps = dependency container holding business data
+FunctionToolset = collection of callable tools exposed to the agent
+ModelRetry = built-in repair signal that tells the model to retry with better input
+output_validator = guardrail for final structured output
